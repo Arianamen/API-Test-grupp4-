@@ -1,0 +1,552 @@
+{
+	"info": {
+		"_postman_id": "e509ca2d-1737-41b8-a228-92a0caeaea9b",
+		"name": "Swagger Pet Store API Testing",
+		"description": "Här kan man hitta hur man kan lägga till användare, djur och se butiken.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29559355",
+		"_collection_link": "https://red-robot-803541.postman.co/workspace/Grupp-4~5fe0cd79-77e2-49eb-b5f6-8fbd712b5c71/collection/25194836-e509ca2d-1737-41b8-a228-92a0caeaea9b?action=share&source=collection_link&creator=29559355"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful adding user\", () => {\r",
+									"  pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 300,\r\n  \"username\": \"Grupp4\",\r\n  \"firstName\": \"Namn\",\r\n  \"lastName\": \"Efternamn\",\r\n  \"email\": \"namn@efternamn.se\",\r\n  \"password\": \"banan123\",\r\n  \"phone\": \"0701234567\",\r\n  \"userStatus\": 0\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}user",
+							"host": [
+								"{{URL}}user"
+							]
+						},
+						"description": "Lägga till användare."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": 300,\r\n  \"username\": \"Grupp4\",\r\n  \"firstName\": \"Namn\",\r\n  \"lastName\": \"Efternamn\",\r\n  \"email\": \"namn@efternamn.se\",\r\n  \"password\": \"banan123\",\r\n  \"phone\": \"07012345678\",\r\n  \"userStatus\": 0\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}user/Grupp4",
+							"host": [
+								"{{URL}}user"
+							],
+							"path": [
+								"Grupp4"
+							]
+						},
+						"description": "Uppdatera användare."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Info About User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Get info about user', function () {",
+									"    pm.response.to.have.status(200);",
+									"})",
+									"",
+									"",
+									"pm.test(\"Test om användarnamnent finns med i json\", function () {",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData.username).to.eql(\"Grupp4\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}user/Grupp4",
+							"host": [
+								"{{URL}}user"
+							],
+							"path": [
+								"Grupp4"
+							]
+						},
+						"description": "Få information om användare."
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}user/login?username=Grupp4&password=banan123",
+							"host": [
+								"{{URL}}user"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Grupp4"
+								},
+								{
+									"key": "password",
+									"value": "banan123"
+								}
+							]
+						},
+						"description": "Logga in användare."
+					},
+					"response": []
+				},
+				{
+					"name": "User Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}user/logout",
+							"host": [
+								"{{URL}}user"
+							],
+							"path": [
+								"logout"
+							]
+						},
+						"description": "Logga ut användare."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}user/Grupp4",
+							"host": [
+								"{{URL}}user"
+							],
+							"path": [
+								"Grupp4"
+							]
+						},
+						"description": "Radera användare."
+					},
+					"response": []
+				}
+			],
+			"description": "Här har vi sorterat alla API-Test för just användare."
+		},
+		{
+			"name": "Pet",
+			"item": [
+				{
+					"name": "Add Pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"   pm.response.to.have.header(\"Content-Type\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 8800,\r\n  \"category\":{\r\n    \"id\": 401,\r\n    \"name\": \"Katt\"\r\n  },\r\n  \"name\": \"wiskas\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 402,\r\n      \"name\": \"Brun\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}pet",
+							"host": [
+								"{{URL}}pet"
+							]
+						},
+						"description": "Skapa ett djur."
+					},
+					"response": []
+				},
+				{
+					"name": "Get info About Pet By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Ska finnas en category', function () {",
+									"    pm.expect(pm.response.text()).to.include('category');",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}pet/400",
+							"host": [
+								"{{URL}}pet"
+							],
+							"path": [
+								"400"
+							]
+						},
+						"description": "Få information om djuren med id nummer."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 600,\r\n  \"category\": {\r\n    \"id\": 601,\r\n    \"name\": \"kiss\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 602,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}pet",
+							"host": [
+								"{{URL}}pet"
+							]
+						},
+						"description": "Uppdatera Djur."
+					},
+					"response": []
+				},
+				{
+					"name": "Store Inventory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}store/inventory",
+							"host": [
+								"{{URL}}store"
+							],
+							"path": [
+								"inventory"
+							]
+						},
+						"description": "Djur inventarier."
+					},
+					"response": []
+				}
+			],
+			"description": "Här har vi sorterat alla API-Test för just Husdjur."
+		},
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "Order Pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 5,\r\n  \"petId\": 8800,\r\n  \"quantity\": 1,\r\n  \"shipDate\": \"2023-09-06T12:08:30.812Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}store/order",
+							"host": [
+								"{{URL}}store"
+							],
+							"path": [
+								"order"
+							]
+						},
+						"description": "Beställa djur."
+					},
+					"response": []
+				},
+				{
+					"name": "Order Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}store/order/5",
+							"host": [
+								"{{URL}}store"
+							],
+							"path": [
+								"order",
+								"5"
+							]
+						},
+						"description": "Vilken order det är."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Pet Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}store/order/5",
+							"host": [
+								"{{URL}}store"
+							],
+							"path": [
+								"order",
+								"5"
+							]
+						},
+						"description": "Radera djur."
+					},
+					"response": []
+				}
+			],
+			"description": "Här har vi sorterat alla API-Test för just Ordrar."
+		}
+	]
+}
